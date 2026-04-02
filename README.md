@@ -1,29 +1,97 @@
-# HAR Motion Analysis Pipeline
+Human Motion Calibration & Rehabilitation Analysis (HAR Pipeline)
 
-A C++17 signal processing pipeline for analyzing wearable inertial sensor data from the UCI Human Activity Recognition dataset. This project demonstrates how raw accelerometer and gyroscope data can be transformed into clinically relevant motion metrics through efficient data processing and automated validation.
+A full-stack motion analysis pipeline that processes raw human activity sensor data, extracts meaningful biomechanical metrics, and visualizes results for rehabilitation insights.
 
-## Project Takeaway
+This project combines:
 
-This project demonstrates:
-- **Real-time sensor data processing** in C++ using efficient algorithms for IMU signal analysis  
-- **Clinical metric extraction** including repetition counting, movement intensity, and smoothness scoring  
-- **End-to-end data pipeline design** from raw sensor streams to structured CSV outputs  
-- **Automated validation** through Python-based graphical analysis  
-- **Modular and maintainable code structure** with clear separation of processing, metrics, and data handling  
+High-performance C++ signal processing
+Python-based data visualization
+Optional Next.js frontend for interactive demos
+🚀 Overview
 
-The pipeline simulates a rehabilitation monitoring system capable of tracking patient motion quality and activity patterns.
+This system analyzes human motion using accelerometer and gyroscope data from the UCI HAR dataset.
 
-## Analysis Pipeline
+Pipeline:
 
-### Key Observations
+Raw sensor data → processed in C++
+Metrics extracted per activity
+Results exported as CSV
+Python generates plots
+(Optional) Web app visualizes motion patterns
+📂 Project Structure
+har_rehab_cpp/
+│
+├── data/                     # Raw HAR dataset
+│
+├── src/                      # C++ source files
+│   ├── main.cpp
+│   ├── DataLoader.cpp
+│   ├── SignalProcessing.cpp
+│   └── Metrics.cpp
+│
+├── include/                  # Header files
+│
+├── scripts/
+│   └── generate_plots.py     # Python visualization script
+│
+├── plots/                    # Generated graphs
+│
+├── web/                      # Next.js visualization app (optional)
+│
+├── summary_by_activity.csv   # Aggregated results
+├── window_metrics.csv        # Window-level metrics
+│
+├── CMakeLists.txt
+└── README.md
+⚙️ Features
+Signal processing (filtering, smoothing)
+Peak acceleration detection
+Gyroscope magnitude analysis
+Movement smoothness calculation
+Repetition estimation
+Activity-based aggregation
+🧠 Metrics Explained
+Metric	Meaning
+Peak Acceleration	Movement intensity
+Gyroscope Magnitude	Rotational motion
+Smoothness	Stability of motion
+Repetitions	Estimated movement cycles
+🛠️ Setup Instructions
+1. Clone the Repository
+git clone https://github.com/Hrish-D/Human-motion-calibration.git
+cd Human-motion-calibration
+2. Build the C++ Pipeline
+Option A: Using g++
+g++ -std=c++17 -Iinclude src/main.cpp src/DataLoader.cpp src/SignalProcessing.cpp src/Metrics.cpp -o har_rehab_cpp
+Option B: Using CMake
+mkdir build
+cd build
+cmake ..
+cmake --build .
+3. Run the Program
+./har_rehab_cpp
 
-- Dynamic activities (e.g., walking) show higher peak acceleration and repetition counts  
-- Static activities (e.g., sitting, standing) exhibit lower variance and higher smoothness  
-- Gyroscope magnitude helps distinguish rotational motion between activity types  
+This generates:
 
-## Prerequisites
+summary_by_activity.csv
+window_metrics.csv
+4. Generate Visualizations
+python scripts/generate_plots.py
 
-- **C++ Build Tools**: CMake 3.10+, C++17 compiler (GCC, Clang, or MSVC)  
-- **Python 3.7+** with:
-  ```bash
-  pip install pandas matplotlib
+Output:
+
+plots/peak_acceleration.png
+plots/peak_gyroscope.png
+plots/smoothness.png
+plots/repetitions.png
+
+✔ You already confirmed this works
+
+🌐 Optional: Run Web Visualization
+cd web
+npm install
+npm run dev
+
+Open:
+
+http://localhost:3000
